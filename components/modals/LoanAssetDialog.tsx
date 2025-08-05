@@ -52,19 +52,19 @@ export default function LoanAssetDialog({
       <DialogContent className="backdrop-blur-xl bg-white/90 border border-white/20 shadow-2xl rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold bg-gradient-to-r from-gray-900 to-blue-900 bg-clip-text text-transparent">
-            Return Asset
+            归还资产
           </DialogTitle>
           <DialogDescription className="text-gray-600 mt-2">
-            Confirm return of {asset.name} ({asset.serial_number})
+            确认归还 {asset.name} ({asset.serial_number})
           </DialogDescription>
         </DialogHeader>
         <div className="py-6">
           <p className="text-gray-700">
-            Currently borrowed by: <strong>{asset.borrower_name}</strong>
+            当前借用人: <strong>{asset.borrower_name}</strong>
           </p>
           {asset.expected_return_date && (
             <p className="text-gray-700 mt-2">
-              Expected return: <strong>{new Date(asset.expected_return_date).toLocaleDateString()}</strong>
+              预期归还时间: <strong>{new Date(asset.expected_return_date).toLocaleDateString()}</strong>
             </p>
           )}
         </div>
@@ -75,14 +75,14 @@ export default function LoanAssetDialog({
               variant="outline"
               className="backdrop-blur-sm bg-white/50 border-white/30 rounded-xl px-6"
             >
-              Cancel
+              取消
             </Button>
           </DialogClose>
           <Button
             onClick={handleReturn}
             className="bg-gradient-to-r from-[#003399] to-[#3366cc] hover:from-[#003399]/90 hover:to-[#3366cc]/90 text-white rounded-xl px-6"
           >
-            Confirm Return
+            确认归还
           </Button>
         </div>
       </DialogContent>
@@ -93,10 +93,10 @@ export default function LoanAssetDialog({
     <DialogContent className="backdrop-blur-xl bg-white/90 border border-white/20 shadow-2xl rounded-2xl">
       <DialogHeader>
         <DialogTitle className="text-xl font-bold bg-gradient-to-r from-gray-900 to-blue-900 bg-clip-text text-transparent">
-          Loan Asset
+          借出资产
         </DialogTitle>
         <DialogDescription className="text-gray-600 mt-2">
-          Record the loan of {asset.name} ({asset.serial_number})
+          记录 {asset.name} ({asset.serial_number}) 的借出信息
         </DialogDescription>
       </DialogHeader>
       <div className="grid gap-6 py-6">
@@ -105,13 +105,13 @@ export default function LoanAssetDialog({
             htmlFor="borrower"
             className="text-right font-semibold text-gray-700"
           >
-            Borrower
+            借用人
           </Label>
           <Input
             id="borrower"
             value={loanBorrower}
             onChange={(e) => setLoanBorrower(e.target.value)}
-            placeholder="Enter borrower name"
+            placeholder="请输入借用人姓名"
             className="col-span-3 backdrop-blur-sm bg-white/50 border-white/30 rounded-xl py-4"
             required
           />
@@ -121,7 +121,7 @@ export default function LoanAssetDialog({
             htmlFor="due-date"
             className="text-right font-semibold text-gray-700"
           >
-            Due Date
+            归还日期
           </Label>
           <Input
             id="due-date"
@@ -136,13 +136,13 @@ export default function LoanAssetDialog({
             htmlFor="loan-notes"
             className="text-right font-semibold text-gray-700"
           >
-            Notes
+            备注
           </Label>
           <Textarea
             id="loan-notes"
             value={loanNotes}
             onChange={(e) => setLoanNotes(e.target.value)}
-            placeholder="Loan notes..."
+            placeholder="借出备注..."
             className="col-span-3 backdrop-blur-sm bg-white/50 border-white/30 rounded-xl"
           />
         </div>
@@ -154,14 +154,14 @@ export default function LoanAssetDialog({
             variant="outline"
             className="backdrop-blur-sm bg-white/50 border-white/30 rounded-xl px-6"
           >
-            Cancel
+            取消
           </Button>
         </DialogClose>
         <Button
           onClick={handleLoanSubmit}
           className="bg-gradient-to-r from-[#003399] to-[#3366cc] hover:from-[#003399]/90 hover:to-[#3366cc]/90 text-white rounded-xl px-6"
         >
-          Create Loan
+          确认借出
         </Button>
       </div>
     </DialogContent>

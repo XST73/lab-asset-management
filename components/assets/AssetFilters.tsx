@@ -36,7 +36,7 @@ export default function AssetFilters({
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500 z-10" />
         <Input
           type="search"
-          placeholder="Search assets..."
+          placeholder="搜索资产..."
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
           className="pl-12 bg-white/80 border-gray-200/50 focus:bg-white focus:border-[#3366cc]/50 transition-all duration-300 rounded-xl py-5 text-base shadow-sm"
@@ -44,10 +44,10 @@ export default function AssetFilters({
       </div>
       <Select value={selectedCategory} onValueChange={onCategoryChange}>
         <SelectTrigger className="w-full sm:w-[220px] bg-white/80 border-gray-200/50 focus:border-[#3366cc]/50 rounded-xl py-5 shadow-sm">
-          <SelectValue placeholder="Category" />
+          <SelectValue placeholder="资产类别" />
         </SelectTrigger>
         <SelectContent className="bg-white border-gray-200 rounded-xl shadow-xl">
-          <SelectItem value="all">All Categories</SelectItem>
+          <SelectItem value="all">所有类别</SelectItem>
           {assetTypes.map((type) => (
             <SelectItem key={type.id} value={type.name}>
               {type.name}
@@ -57,13 +57,14 @@ export default function AssetFilters({
       </Select>
       <Select value={selectedStatus} onValueChange={onStatusChange}>
         <SelectTrigger className="w-full sm:w-[220px] bg-white/80 border-gray-200/50 focus:border-[#3366cc]/50 rounded-xl py-5 shadow-sm">
-          <SelectValue placeholder="Status" />
+          <SelectValue placeholder="资产状态" />
         </SelectTrigger>
         <SelectContent className="bg-white border-gray-200 rounded-xl shadow-xl">
-          <SelectItem value="all">All Status</SelectItem>
+          <SelectItem value="all">所有状态</SelectItem>
           <SelectItem value="在库">在库</SelectItem>
           <SelectItem value="已借出">已借出</SelectItem>
           <SelectItem value="维修中">维修中</SelectItem>
+          <SelectItem value="已报废">已报废</SelectItem>
         </SelectContent>
       </Select>
     </div>

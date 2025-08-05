@@ -23,7 +23,7 @@ export default function AssetList({
   onReturn,
 }: AssetListProps) {
   if (isLoading) {
-    return <div className="text-center py-10">Loading assets...</div>;
+    return <div className="text-center py-10">正在加载资产...</div>;
   }
 
   return (

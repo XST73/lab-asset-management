@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 // app/api/records/route.ts
 
 import { query } from "@/lib/db";

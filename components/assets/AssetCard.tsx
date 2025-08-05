@@ -92,22 +92,22 @@ export default function AssetCard({
         </div>
         <div className="text-sm space-y-3 bg-white/30 backdrop-blur-sm rounded-xl p-5 border border-white/20 flex-grow">
           <p>
-            <strong className="text-gray-900">Location:</strong>{" "}
+            <strong className="text-gray-900">位置:</strong>{" "}
             <span className="text-gray-700">{asset.location}</span>
           </p>
           <p>
-            <strong className="text-gray-900">Category:</strong>{" "}
+            <strong className="text-gray-900">类别:</strong>{" "}
             <span className="text-gray-700">{asset.asset_type_name}</span>
           </p>
           {asset.status === "已借出" && asset.borrower_name && (
             <>
               <p>
-                <strong className="text-gray-900">Borrower:</strong>{" "}
+                <strong className="text-gray-900">借用人:</strong>{" "}
                 <span className="text-gray-700">{asset.borrower_name}</span>
               </p>
               {asset.expected_return_date && (
                 <p>
-                  <strong className="text-gray-900">Due:</strong>{" "}
+                  <strong className="text-gray-900">到期时间:</strong>{" "}
                   <span className="text-gray-700">
                     {new Date(asset.expected_return_date).toLocaleDateString()}
                   </span>
@@ -124,7 +124,7 @@ export default function AssetCard({
                   size="sm"
                   className="flex-1 bg-gradient-to-r from-[#003399] to-[#3366cc] hover:from-[#003399]/90 hover:to-[#3366cc]/90 text-white shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 rounded-xl font-semibold py-5"
                 >
-                  Loan Out
+                  借出
                 </Button>
               </DialogTrigger>
               <LoanAssetDialog
@@ -141,7 +141,7 @@ export default function AssetCard({
               onClick={() => onReturn(asset.id)}
               className="flex-1 backdrop-blur-sm bg-slate/50 hover:bg-slate/70 transition-all duration-300 rounded-xl font-semibold py-5 border-slate-300"
             >
-              Return
+              归还
             </Button>
           )}
         </div>

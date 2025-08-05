@@ -66,10 +66,10 @@ export default function EditAssetDialog({
       <DialogContent className="sm:max-w-[520px] backdrop-blur-xl bg-white/90 border border-white/20 shadow-2xl rounded-2xl">
         <DialogHeader className="pb-8">
           <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-blue-900 bg-clip-text text-transparent">
-            Edit Asset
+            编辑资产
           </DialogTitle>
           <DialogDescription className="text-gray-600 text-base mt-2">
-            Update the details for: {editingAsset.name}
+            更新资产详情: {editingAsset.name}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
@@ -80,7 +80,7 @@ export default function EditAssetDialog({
                 htmlFor="edit-asset-name"
                 className="text-right font-semibold text-gray-700"
               >
-                Name
+                名称
               </Label>
               <Input
                 id="edit-asset-name"
@@ -95,7 +95,7 @@ export default function EditAssetDialog({
                 htmlFor="edit-asset-model"
                 className="text-right font-semibold text-gray-700"
               >
-                Model
+                型号
               </Label>
               <Input
                 id="edit-asset-model"
@@ -110,7 +110,7 @@ export default function EditAssetDialog({
                 htmlFor="edit-asset-serial"
                 className="text-right font-semibold text-gray-700"
               >
-                Serial No.
+                序列号
               </Label>
               <Input
                 id="edit-asset-serial"
@@ -125,14 +125,14 @@ export default function EditAssetDialog({
                 htmlFor="edit-category"
                 className="text-right font-semibold text-gray-700"
               >
-                Category
+                类别
               </Label>
               <Select
                 value={String(editingAsset.asset_type_id || "")}
                 onValueChange={(value) => handleInputChange("asset_type_id", parseInt(value, 10))}
               >
                 <SelectTrigger className="col-span-3 backdrop-blur-sm bg-white/50 border-white/30 rounded-xl py-3">
-                  <SelectValue placeholder="Select category" />
+                  <SelectValue placeholder="选择类别" />
                 </SelectTrigger>
                 <SelectContent className="backdrop-blur-xl bg-white/90 border-white/20 rounded-xl">
                   {assetTypes.map((type) => (
@@ -149,7 +149,7 @@ export default function EditAssetDialog({
                 htmlFor="edit-location"
                 className="text-right font-semibold text-gray-700"
               >
-                Location
+                位置
               </Label>
               <Input
                 id="edit-location"
@@ -190,7 +190,7 @@ export default function EditAssetDialog({
                 htmlFor="edit-condition"
                 className="text-right font-semibold text-gray-700"
               >
-                Condition
+                状态
               </Label>
               <Select
                 value={editingAsset.condition}
@@ -213,7 +213,7 @@ export default function EditAssetDialog({
                 htmlFor="edit-purchase-date"
                 className="text-right font-semibold text-gray-700"
               >
-                Purchase Date
+                购买日期
               </Label>
               <Input
                 id="edit-purchase-date"
@@ -229,7 +229,7 @@ export default function EditAssetDialog({
                 htmlFor="edit-description"
                 className="text-right font-semibold text-gray-700"
               >
-                Description
+                备注
               </Label>
               <Textarea
                 id="edit-description"
@@ -246,13 +246,13 @@ export default function EditAssetDialog({
               onClick={onClose}
               className="backdrop-blur-sm bg-white/50 border-white/30 hover:bg-white/70 rounded-xl px-6"
             >
-              Cancel
+              取消
             </Button>
             <Button
               type="submit"
               className="bg-gradient-to-r from-[#003399] to-[#3366cc] hover:from-[#003399]/90 hover:to-[#3366cc]/90 text-white rounded-xl px-6"
             >
-              Save Changes
+              保存更改
             </Button>
           </div>
         </form>

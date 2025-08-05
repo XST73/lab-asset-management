@@ -30,10 +30,10 @@ export default function ReportsSection({
       <Card className="backdrop-blur-xl bg-white/60 border border-white/20 shadow-xl shadow-black/5 rounded-2xl w-full">
         <CardHeader className="pb-8">
           <CardTitle className="text-2xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent">
-            Asset Categories Overview
+            资产类别概览
           </CardTitle>
           <CardDescription className="text-gray-600 text-base mt-2">
-            Breakdown of asset count and current utilization by category.
+            按类别统计资产数量和当前使用率。
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -53,7 +53,7 @@ export default function ReportsSection({
                     </span>
                   </div>
                   <p className="text-xs text-gray-500 font-medium">
-                    Total Units
+                    总数量
                   </p>
                 </div>
                 <div className="mt-4">
@@ -64,7 +64,7 @@ export default function ReportsSection({
                     ></div>
                   </div>
                   <p className="text-right text-sm font-semibold text-gray-700 mt-1">
-                    {item.utilization}% In Use
+                    {item.utilization}% 使用中
                   </p>
                 </div>
               </div>
@@ -79,10 +79,10 @@ export default function ReportsSection({
         <Card className="backdrop-blur-xl bg-white/60 border border-white/20 shadow-xl shadow-black/5 rounded-2xl">
           <CardHeader className="pb-8">
             <CardTitle className="text-xl font-bold bg-gradient-to-r from-gray-900 to-blue-900 bg-clip-text text-transparent">
-              Asset Status
+              资产状态
             </CardTitle>
             <CardDescription className="text-gray-600 text-base mt-2">
-              Overall status of all assets
+              所有资产的总体状态
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -121,10 +121,10 @@ export default function ReportsSection({
         <Card className="backdrop-blur-xl bg-white/60 border border-white/20 shadow-xl shadow-black/5 rounded-2xl">
           <CardHeader className="pb-8">
             <CardTitle className="text-xl font-bold bg-gradient-to-r from-gray-900 to-blue-900 bg-clip-text text-transparent">
-              Overdue Assets
+              逾期资产
             </CardTitle>
             <CardDescription className="text-gray-600 text-base mt-2">
-              Assets past their due date
+              超过预期归还日期的资产
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -147,18 +147,18 @@ export default function ReportsSection({
                           {item.asset_name}
                         </div>
                         <div className="text-xs text-gray-600 mt-1">
-                          To: {item.borrower_name}
+                          借用人: {item.borrower_name}
                         </div>
                       </div>
                       <Badge variant="destructive">
-                        {daysOverdue} days overdue
+                        逾期 {daysOverdue} 天
                       </Badge>
                     </div>
                   );
                 })
               ) : (
                 <p className="text-center text-gray-500 py-4">
-                  No overdue assets.
+                  暂无逾期资产。
                 </p>
               )}
             </div>

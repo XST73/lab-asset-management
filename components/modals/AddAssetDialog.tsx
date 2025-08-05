@@ -83,10 +83,10 @@ export default function AddAssetDialog({
     <DialogContent className="sm:max-w-[520px] backdrop-blur-xl bg-white/90 border border-white/20 shadow-2xl rounded-2xl">
       <DialogHeader className="pb-8">
         <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-blue-900 bg-clip-text text-transparent">
-          Add New Asset
+          添加新资产
         </DialogTitle>
         <DialogDescription className="text-gray-600 text-base mt-2">
-          Enter the details of the new laboratory equipment.
+          请输入新实验室设备的详细信息。
         </DialogDescription>
       </DialogHeader>
       <form onSubmit={handleSubmit}>
@@ -96,13 +96,13 @@ export default function AddAssetDialog({
               htmlFor="asset-name"
               className="text-right font-semibold text-gray-700"
             >
-              Name
+              名称
             </Label>
             <Input
               id="asset-name"
               value={formData.name}
               onChange={(e) => handleInputChange("name", e.target.value)}
-              placeholder="e.g., Meta Quest 3"
+              placeholder="例如：Meta Quest 3"
               required
               className="col-span-3 backdrop-blur-sm bg-white/50 border-white/30 focus:bg-white/70 rounded-xl py-3"
             />
@@ -112,13 +112,13 @@ export default function AddAssetDialog({
               htmlFor="asset-model"
               className="text-right font-semibold text-gray-700"
             >
-              Model
+              型号
             </Label>
             <Input
               id="asset-model"
               value={formData.model}
               onChange={(e) => handleInputChange("model", e.target.value)}
-              placeholder="e.g., 256GB"
+              placeholder="例如：256GB"
               className="col-span-3 backdrop-blur-sm bg-white/50 border-white/30 focus:bg-white/70 rounded-xl py-3"
             />
           </div>
@@ -127,13 +127,13 @@ export default function AddAssetDialog({
               htmlFor="asset-serial"
               className="text-right font-semibold text-gray-700"
             >
-              Serial No.
+              序列号
             </Label>
             <Input
               id="asset-serial"
               value={formData.serial_number}
               onChange={(e) => handleInputChange("serial_number", e.target.value)}
-              placeholder="Unique serial number"
+              placeholder="唯一序列号"
               className="col-span-3 backdrop-blur-sm bg-white/50 border-white/30 focus:bg-white/70 rounded-xl py-3"
             />
           </div>
@@ -142,7 +142,7 @@ export default function AddAssetDialog({
               htmlFor="category"
               className="text-right font-semibold text-gray-700"
             >
-              Category
+              类别
             </Label>
             <Select
               value={formData.asset_type_id}
@@ -150,7 +150,7 @@ export default function AddAssetDialog({
               required
             >
               <SelectTrigger className="col-span-3 backdrop-blur-sm bg-white/50 border-white/30 rounded-xl py-3">
-                <SelectValue placeholder="Select category" />
+                <SelectValue placeholder="选择类别" />
               </SelectTrigger>
               <SelectContent className="backdrop-blur-xl bg-white/90 border-white/20 rounded-xl">
                 {assetTypes.map((type) => (
@@ -166,13 +166,13 @@ export default function AddAssetDialog({
               htmlFor="location"
               className="text-right font-semibold text-gray-700"
             >
-              Location
+              位置
             </Label>
             <Input
               id="location"
               value={formData.location}
               onChange={(e) => handleInputChange("location", e.target.value)}
-              placeholder="e.g., Lab A - Shelf 1"
+              placeholder="例如：实验室A - 1号架"
               className="col-span-3 backdrop-blur-sm bg-white/50 border-white/30 focus:bg-white/70 rounded-xl py-3"
             />
           </div>
@@ -181,14 +181,14 @@ export default function AddAssetDialog({
               htmlFor="condition"
               className="text-right font-semibold text-gray-700"
             >
-              Condition
+              状态
             </Label>
             <Select
               value={formData.condition}
               onValueChange={(value) => handleInputChange("condition", value)}
             >
               <SelectTrigger className="col-span-3 backdrop-blur-sm bg-white/50 border-white/30 rounded-xl py-3">
-                <SelectValue placeholder="Select condition" />
+                <SelectValue placeholder="选择状态" />
               </SelectTrigger>
               <SelectContent className="backdrop-blur-xl bg-white/90 border-white/20 rounded-xl">
                 <SelectItem value="完好">完好</SelectItem>
@@ -203,7 +203,7 @@ export default function AddAssetDialog({
               htmlFor="purchase_date"
               className="text-right font-semibold text-gray-700"
             >
-              Purchase Date
+              购买日期
             </Label>
             <Input
               id="purchase_date"
@@ -218,13 +218,13 @@ export default function AddAssetDialog({
               htmlFor="notes"
               className="text-right font-semibold text-gray-700"
             >
-              Notes
+              备注
             </Label>
             <Textarea
               id="notes"
               value={formData.description}
               onChange={(e) => handleInputChange("description", e.target.value)}
-              placeholder="Additional notes..."
+              placeholder="附加说明..."
               className="col-span-3 backdrop-blur-sm bg-white/50 border-white/30 focus:bg-white/70 rounded-xl"
             />
           </div>
@@ -237,14 +237,14 @@ export default function AddAssetDialog({
               variant="outline"
               className="backdrop-blur-sm bg-white/50 border-white/30 hover:bg-white/70 rounded-xl px-6"
             >
-              Cancel
+              取消
             </Button>
           </DialogClose>
           <Button
             type="submit"
             className="bg-gradient-to-r from-[#003399] to-[#3366cc] hover:from-[#003399]/90 hover:to-[#3366cc]/90 text-white rounded-xl px-6"
           >
-            Add Asset
+            添加资产
           </Button>
         </div>
       </form>

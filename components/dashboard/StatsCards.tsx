@@ -18,36 +18,36 @@ export default function StatsCards({
 }: StatsCardsProps) {
   const stats = [
     {
-      title: "Available Assets",
+      title: "可用资产",
       value: availableCount,
       icon: Package,
       gradient: "from-emerald-500 to-green-500",
       textGradient: "from-emerald-600 to-green-600",
-      description: "Ready for use",
+      description: "可供使用",
     },
     {
-      title: "On Loan",
+      title: "已借出",
       value: onLoanCount,
       icon: Users,
       gradient: "from-amber-500 to-yellow-500",
       textGradient: "from-amber-600 to-yellow-600",
-      description: "Currently borrowed",
+      description: "当前借用中",
     },
     {
-      title: "Maintenance",
+      title: "维修中",
       value: maintenanceCount,
       icon: Clock,
       gradient: "from-rose-500 to-red-500",
       textGradient: "from-rose-600 to-red-600",
-      description: "Under repair",
+      description: "正在维修",
     },
     {
-      title: "Overdue",
+      title: "逾期未还",
       value: overdueCount,
       icon: AlertTriangle,
       gradient: "from-orange-500 to-red-500",
       textGradient: "from-orange-600 to-red-600",
-      description: "Past due date",
+      description: "超过归还期限",
     },
   ];
 

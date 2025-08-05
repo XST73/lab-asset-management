@@ -22,19 +22,19 @@ export default function LoanRecordsTable({ loanRecords }: LoanRecordsTableProps)
         <TableHeader>
           <TableRow className="border-white/20 hover:bg-white/20">
             <TableHead className="font-bold text-gray-700 py-6">
-              Asset
+              资产
             </TableHead>
             <TableHead className="font-bold text-gray-700 py-6">
-              Borrower
+              借用人
             </TableHead>
             <TableHead className="font-bold text-gray-700 py-6">
-              Loan Date
+              借出日期
             </TableHead>
             <TableHead className="font-bold text-gray-700 py-6">
-              Return Date
+              归还日期
             </TableHead>
             <TableHead className="font-bold text-gray-700 py-6">
-              Status
+              状态
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -94,10 +94,10 @@ export default function LoanRecordsTable({ loanRecords }: LoanRecordsTableProps)
                     }
                   >
                     {isReturned
-                      ? "Returned"
+                      ? "已归还"
                       : isOverdue
-                      ? "Overdue"
-                      : "On Loan"}
+                      ? "逾期"
+                      : "借出中"}
                   </Badge>
                 </TableCell>
               </TableRow>

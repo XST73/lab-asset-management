@@ -144,20 +144,20 @@ export default function LabAssetManagement() {
               value="assets"
               className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#003399] data-[state=active]:to-[#3366cc] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 px-10 py-6 font-semibold whitespace-nowrap rounded-xl ml-[-24px]"
             >
-              <Activity className="w-4 h-4 mr-2" /> Asset Inventory
+              <Activity className="w-4 h-4 mr-2" /> 资产清单
             </TabsTrigger>
             <TabsTrigger
               value="loans"
               className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#003399] data-[state=active]:to-[#3366cc] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 rounded-xl px-10 py-6 font-semibold whitespace-nowrap"
             >
-              <BarChart3 className="w-4 h-4 mr-2" /> Loan Management
+              <BarChart3 className="w-4 h-4 mr-2" /> 借还管理
             </TabsTrigger>
             <TabsTrigger
               value="reports"
               className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#003399] data-[state=active]:to-[#3366cc] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 rounded-xl px-10 py-6 font-semibold whitespace-nowrap mr-[-24px]"
             >
               <Settings className="w-4 h-4 mr-2" />
-              Reports
+              数据报告
             </TabsTrigger>
           </TabsList>
 
@@ -165,10 +165,10 @@ export default function LabAssetManagement() {
             <Card className="backdrop-blur-xl bg-white/60 border border-white/20 shadow-xl shadow-black/5 rounded-2xl">
               <CardHeader className="pb-8">
                 <CardTitle className="text-2xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent">
-                  Asset Inventory
+                  资产清单
                 </CardTitle>
                 <CardDescription className="text-gray-600 text-base mt-2">
-                  Manage and track all laboratory equipment
+                  管理和跟踪所有实验室设备
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -199,10 +199,10 @@ export default function LabAssetManagement() {
             <Card className="backdrop-blur-xl bg-white/60 border border-white/20 shadow-xl shadow-black/5 rounded-2xl">
               <CardHeader className="pb-8">
                 <CardTitle className="text-2xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 bg-clip-text text-transparent">
-                  Loan Management
+                  借还管理
                 </CardTitle>
                 <CardDescription className="text-gray-600 text-base mt-2">
-                  Track active loans and return history
+                  跟踪借用记录和归还历史
                 </CardDescription>
               </CardHeader>
               <CardContent>
