@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Asset } from "@/types";
-import { getStatusColor, getConditionColor, getCategoryIcon, getCategoryIconBg } from "@/utils/helpers";
+import { getStatusColor, getConditionColor, getIconComponent } from "@/utils/helpers";
 import LoanAssetDialog from "@/components/modals/LoanAssetDialog";
 
 interface AssetCardProps {
@@ -30,7 +30,8 @@ export default function AssetCard({
   onLoan,
   onReturn,
 }: AssetCardProps) {
-  const CategoryIcon = getCategoryIcon(asset.asset_type_name || "");
+  const CategoryIcon = getIconComponent(asset.asset_type_icon || "Archive");
+  const iconBackgroundColor = asset.asset_type_color || "from-gray-500 to-gray-600";
 
   return (
     <Card className="backdrop-blur-xl bg-white/60 border border-white/20 shadow-xl shadow-black/5 hover:shadow-2xl hover:shadow-black/10 transition-all duration-300 group hover:scale-[1.02] rounded-2xl flex flex-col h-full">
@@ -38,9 +39,7 @@ export default function AssetCard({
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <div
-              className={`${getCategoryIconBg(
-                asset.asset_type_name || ""
-              )} p-3 rounded-xl shadow-lg`}
+              className={`bg-gradient-to-br ${iconBackgroundColor} p-3 rounded-xl shadow-lg`}
             >
               <CategoryIcon className="w-6 h-6 text-white" />
             </div>

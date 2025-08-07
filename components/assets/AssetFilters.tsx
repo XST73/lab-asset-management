@@ -57,7 +57,7 @@ export default function AssetFilters({
       </Select>
       <Select value={selectedStatus} onValueChange={onStatusChange}>
         <SelectTrigger className="w-full sm:w-[220px] bg-white/80 border-gray-200/50 focus:border-[#3366cc]/50 rounded-xl py-5 shadow-sm">
-          <SelectValue placeholder="资产状态" />
+          <SelectValue placeholder="状态" />
         </SelectTrigger>
         <SelectContent className="bg-white border-gray-200 rounded-xl shadow-xl">
           <SelectItem value="all">所有状态</SelectItem>

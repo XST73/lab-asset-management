@@ -1,12 +1,12 @@
 // utils/helpers.ts
 
 import { Asset } from '@/types';
-import {
-  Glasses,
-  Headphones,
-  Camera,
-  Monitor,
-} from "lucide-react";
+import { LucideIcon, Archive, icons } from "lucide-react";
+
+// 动态获取图标组件（使用 lucide-react 的 icons 对象）
+export const getIconComponent = (iconName: string): LucideIcon => {
+  return icons[iconName as keyof typeof icons] || Archive;
+};
 
 export const getStatusColor = (status: string) => {
   switch (status) {
@@ -36,30 +36,9 @@ export const getConditionColor = (condition: string) => {
   }
 };
 
-export const getCategoryIcon = (category: string) => {
-  switch (category) {
-    case "VR头盔":
-      return Headphones;
-    case "AR Glasses":
-      return Glasses;
-    case "Camera":
-      return Camera;
-    default:
-      return Monitor;
-  }
-};
-
-export const getCategoryIconBg = (category: string) => {
-  switch (category) {
-    case "VR头盔":
-      return "bg-gradient-to-br from-purple-500 to-indigo-600";
-    case "AR Glasses":
-      return "bg-gradient-to-br from-blue-500 to-cyan-600";
-    case "Camera":
-      return "bg-gradient-to-br from-green-500 to-emerald-600";
-    default:
-      return "bg-gradient-to-br from-gray-500 to-slate-600";
-  }
+export const getCategoryIcon = (iconName?: string) => {
+  if (!iconName) return Archive;
+  return getIconComponent(iconName);
 };
 
 export const filterAssets = (

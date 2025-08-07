@@ -1,6 +1,13 @@
 // services/api.ts
 
-import { Asset, AssetType, LoanRecord, StatusDistribution, OverdueAsset, CategoryStat } from '@/types';
+import {
+  Asset,
+  AssetType,
+  LoanRecord,
+  StatusDistribution,
+  OverdueAsset,
+  CategoryStat,
+} from "@/types";
 
 // Asset API calls
 export const assetAPI = {
@@ -22,7 +29,7 @@ export const assetAPI = {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(assetData),
       });
-      
+
       if (response.ok) {
         return true;
       } else {
@@ -71,7 +78,7 @@ export const assetAPI = {
       console.error("删除资产时出错:", error);
       throw error;
     }
-  }
+  },
 };
 
 // Asset Types API calls
@@ -85,7 +92,53 @@ export const assetTypeAPI = {
       console.error("获取资产类型失败:", error);
       return [];
     }
-  }
+  },
+
+  async create(typeData: Partial<AssetType>): Promise<boolean> {
+    try {
+      const response = await fetch("/api/asset-types", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(typeData),
+      });
+      if (response.ok) return true;
+      const errorData = await response.json();
+      throw new Error(errorData.message);
+    } catch (error) {
+      console.error("创建资产类型失败:", error);
+      throw error;
+    }
+  },
+
+  async update(id: number, typeData: Partial<AssetType>): Promise<boolean> {
+    try {
+      const response = await fetch(`/api/asset-types/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(typeData),
+      });
+      if (response.ok) return true;
+      const errorData = await response.json();
+      throw new Error(errorData.message);
+    } catch (error) {
+      console.error("更新资产类型失败:", error);
+      throw error;
+    }
+  },
+
+  async delete(id: number): Promise<boolean> {
+    try {
+      const response = await fetch(`/api/asset-types/${id}`, {
+        method: "DELETE",
+      });
+      if (response.status === 204) return true;
+      const errorData = await response.json();
+      throw new Error(errorData.message);
+    } catch (error) {
+      console.error("删除资产类型失败:", error);
+      throw error;
+    }
+  },
 };
 
 // Loan Records API calls
@@ -144,7 +197,7 @@ export const loanRecordAPI = {
       console.error("归还资产时出错:", error);
       throw error;
     }
-  }
+  },
 };
 
 // Reports API calls
@@ -160,15 +213,15 @@ export const reportsAPI = {
       return {
         statusDistribution: data.statusDistribution || [],
         overdueAssets: data.overdueAssets || [],
-        categoryStats: data.categoryStats || []
+        categoryStats: data.categoryStats || [],
       };
     } catch (error) {
       console.error("获取报告数据失败:", error);
       return {
         statusDistribution: [],
         overdueAssets: [],
-        categoryStats: []
+        categoryStats: [],
       };
     }
-  }
+  },
 };

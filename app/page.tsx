@@ -23,6 +23,7 @@ import LoanRecordsTable from "@/components/loans/LoanRecordsTable";
 import ReportsSection from "@/components/reports/ReportsSection";
 import AddAssetDialog from "@/components/modals/AddAssetDialog";
 import EditAssetDialog from "@/components/modals/EditAssetDialog";
+import ManageAssetTypesDialog from "@/components/modals/ManageAssetTypesDialog";
 
 // Import custom hooks and utilities
 import { useAssetData } from "@/hooks/useAssetData";
@@ -50,6 +51,9 @@ export default function LabAssetManagement() {
   // Edit dialog state
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editingAsset, setEditingAsset] = useState<Asset | null>(null);
+
+  // Manage types dialog state
+  const [isManageTypesDialogOpen, setIsManageTypesDialogOpen] = useState(false);
 
   // Event handlers
   const handleAssetAdded = async () => {
@@ -127,7 +131,10 @@ export default function LabAssetManagement() {
       <Background />
 
       <Header>
-        <AddAssetDialog assetTypes={assetTypes} onAssetAdded={handleAssetAdded} />
+        <AddAssetDialog
+          assetTypes={assetTypes}
+          onAssetAdded={handleAssetAdded}
+        />
       </Header>
 
       <main className="relative max-w-7xl mx-auto px-8 lg:px-12 py-12">
@@ -217,6 +224,7 @@ export default function LabAssetManagement() {
               overdueAssets={overdueAssets}
               categoryStats={categoryStats}
               totalAssets={assets.length}
+              setIsManageTypesDialogOpen={setIsManageTypesDialogOpen}
             />
           </TabsContent>
         </Tabs>
@@ -228,6 +236,13 @@ export default function LabAssetManagement() {
         isOpen={isEditDialogOpen}
         onClose={() => setIsEditDialogOpen(false)}
         onSave={handleUpdateAsset}
+      />
+
+      <ManageAssetTypesDialog
+        isOpen={isManageTypesDialogOpen}
+        onClose={() => setIsManageTypesDialogOpen(false)}
+        assetTypes={assetTypes}
+        onDataChange={refreshData}
       />
     </div>
   );

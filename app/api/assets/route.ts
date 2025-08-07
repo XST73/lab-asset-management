@@ -12,6 +12,8 @@ export async function GET() {
           a.id, a.name, a.model, a.serial_number, a.status, 
           a.location, a.condition, a.purchase_date, a.image_url, a.description, a.asset_type_id,
           t.name AS asset_type_name,
+          t.icon AS asset_type_icon,
+          t.color AS asset_type_color,
           r.borrower_name,
           r.expected_return_date
         FROM assets a

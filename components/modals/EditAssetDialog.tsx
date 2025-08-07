@@ -164,7 +164,7 @@ export default function EditAssetDialog({
                 htmlFor="edit-status"
                 className="text-right font-semibold text-gray-700"
               >
-                Status
+                状态
               </Label>
               <Select
                 value={editingAsset.status}
@@ -190,7 +190,7 @@ export default function EditAssetDialog({
                 htmlFor="edit-condition"
                 className="text-right font-semibold text-gray-700"
               >
-                状态
+                成色
               </Label>
               <Select
                 value={editingAsset.condition}

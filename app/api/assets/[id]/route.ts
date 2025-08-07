@@ -22,7 +22,7 @@ export async function PUT(request: Request, context: RequestContext) {
   });
 
   try {
-    const { id } = context.params;
+    const { id } = await context.params;
     const assetId = parseInt(id, 10);
     const updatedAsset = await request.json();
 

@@ -13,6 +13,8 @@ export interface Asset {
   description?: string;
   asset_type_id?: number;
   asset_type_name?: string;
+  asset_type_icon?: string;
+  asset_type_color?: string;
   borrower_name?: string;
   expected_return_date?: string;
 }
@@ -20,6 +22,8 @@ export interface Asset {
 export interface AssetType {
   id: number;
   name: string;
+  icon?: string;
+  color?: string;
 }
 
 export interface LoanRecord {

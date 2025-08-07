@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 // components/modals/AddAssetDialog.tsx
 
 import { useState } from "react";
@@ -20,7 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { AssetType, Asset } from "@/types";
+import { AssetType } from "@/types";
 import { assetAPI } from "@/services/api";
 
 interface AddAssetDialogProps {
@@ -181,14 +180,14 @@ export default function AddAssetDialog({
               htmlFor="condition"
               className="text-right font-semibold text-gray-700"
             >
-              状态
+              成色
             </Label>
             <Select
               value={formData.condition}
               onValueChange={(value) => handleInputChange("condition", value)}
             >
               <SelectTrigger className="col-span-3 backdrop-blur-sm bg-white/50 border-white/30 rounded-xl py-3">
-                <SelectValue placeholder="选择状态" />
+                <SelectValue placeholder="选择成色" />
               </SelectTrigger>
               <SelectContent className="backdrop-blur-xl bg-white/90 border-white/20 rounded-xl">
                 <SelectItem value="完好">完好</SelectItem>
