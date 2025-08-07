@@ -15,15 +15,15 @@ interface LoanRecordsTableProps {
   loanRecords: LoanRecord[];
 }
 
-export default function LoanRecordsTable({ loanRecords }: LoanRecordsTableProps) {
+export default function LoanRecordsTable({
+  loanRecords,
+}: LoanRecordsTableProps) {
   return (
     <div className="backdrop-blur-sm bg-white/30 rounded-xl border border-white/20 overflow-hidden">
       <Table>
         <TableHeader>
           <TableRow className="border-white/20 hover:bg-white/20">
-            <TableHead className="font-bold text-gray-700 py-6">
-              资产
-            </TableHead>
+            <TableHead className="font-bold text-gray-700 py-6">资产</TableHead>
             <TableHead className="font-bold text-gray-700 py-6">
               借用人
             </TableHead>
@@ -33,9 +33,7 @@ export default function LoanRecordsTable({ loanRecords }: LoanRecordsTableProps)
             <TableHead className="font-bold text-gray-700 py-6">
               归还日期
             </TableHead>
-            <TableHead className="font-bold text-gray-700 py-6">
-              状态
-            </TableHead>
+            <TableHead className="font-bold text-gray-700 py-6">状态</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -44,7 +42,7 @@ export default function LoanRecordsTable({ loanRecords }: LoanRecordsTableProps)
             const isOverdue =
               !isReturned &&
               loan.expected_return_date &&
-              new Date(loan.expected_return_date) < new Date();
+              new Date(loan.expected_return_date).getDate() < new Date().getDate();
             return (
               <TableRow
                 key={loan.id}
@@ -73,13 +71,9 @@ export default function LoanRecordsTable({ loanRecords }: LoanRecordsTableProps)
                     }
                   >
                     {isReturned
-                      ? new Date(
-                          loan.actual_return_date!
-                        ).toLocaleDateString()
+                      ? new Date(loan.actual_return_date!).toLocaleDateString()
                       : loan.expected_return_date
-                      ? new Date(
-                          loan.expected_return_date
-                        ).toLocaleDateString()
+                      ? new Date(loan.expected_return_date).toLocaleDateString()
                       : "N/A"}
                   </span>
                 </TableCell>
@@ -93,11 +87,7 @@ export default function LoanRecordsTable({ loanRecords }: LoanRecordsTableProps)
                         : "bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100 hover:text-amber-800 font-semibold px-4 py-2 rounded-2xl"
                     }
                   >
-                    {isReturned
-                      ? "已归还"
-                      : isOverdue
-                      ? "逾期"
-                      : "借出中"}
+                    {isReturned ? "已归还" : isOverdue ? "逾期" : "借出中"}
                   </Badge>
                 </TableCell>
               </TableRow>
