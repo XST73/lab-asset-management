@@ -1,7 +1,7 @@
 // app/api/records/route.ts
 
 import { query } from "@/lib/db";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import mysql from "mysql2/promise"; // 导入 mysql2 以使用事务
 
 /**
@@ -149,8 +149,28 @@ export async function PUT(request: Request) {
 /**
  * 处理 GET 请求，获取所有借还记录
  */
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const searchParams = request.nextUrl.searchParams;
+    let page = parseInt(searchParams.get("page") || "1", 10);
+    let limit = parseInt(searchParams.get("limit") || "10", 10); // 每页10条记录
+
+    if (isNaN(page) || page < 1) {
+      page = 1;
+    }
+    if (isNaN(limit) || limit < 1) {
+      limit = 10;
+    }
+
+    const offset = (page - 1) * limit;
+
+    // 查询总记录数
+    const countResult = (await query({
+      query: "SELECT COUNT(*) as total FROM records",
+    })) as { total: number }[];
+    const totalRecords = countResult[0].total;
+
+    // 查询分页后的记录
     const records = await query({
       query: `
         SELECT
@@ -164,10 +184,15 @@ export async function GET() {
         FROM records r
         JOIN assets a ON r.asset_id = a.id
         ORDER BY r.borrow_date DESC
+        LIMIT ${limit} OFFSET ${offset}
       `,
     });
 
-    return NextResponse.json({ records });
+    return NextResponse.json({
+      records,
+      totalRecords,
+      totalPages: Math.ceil(totalRecords / limit),
+    });
   } catch (error) {
     console.error("获取借还记录失败:", error);
     return NextResponse.json({ message: "内部服务器错误" }, { status: 500 });

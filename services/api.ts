@@ -11,14 +11,21 @@ import {
 
 // Asset API calls
 export const assetAPI = {
-  async getAll(): Promise<Asset[]> {
+  async getAll(
+    page = 1,
+    limit = 9
+  ): Promise<{ assets: Asset[]; totalAssets: number; totalPages: number }> {
     try {
-      const response = await fetch("/api/assets");
+      const response = await fetch(`/api/assets?page=${page}&limit=${limit}`);
       const data = await response.json();
-      return data.assets || [];
+      return {
+        assets: data.assets || [],
+        totalAssets: data.totalAssets || 0,
+        totalPages: data.totalPages || 1,
+      };
     } catch (error) {
       console.error("获取资产失败:", error);
-      return [];
+      return { assets: [], totalAssets: 0, totalPages: 1 };
     }
   },
 
@@ -143,14 +150,25 @@ export const assetTypeAPI = {
 
 // Loan Records API calls
 export const loanRecordAPI = {
-  async getAll(): Promise<LoanRecord[]> {
+  async getAll(
+    page = 1,
+    limit = 10
+  ): Promise<{
+    records: LoanRecord[];
+    totalRecords: number;
+    totalPages: number;
+  }> {
     try {
-      const response = await fetch("/api/records");
+      const response = await fetch(`/api/records?page=${page}&limit=${limit}`);
       const data = await response.json();
-      return data.records || [];
+      return {
+        records: data.records || [],
+        totalRecords: data.totalRecords || 0,
+        totalPages: data.totalPages || 1,
+      };
     } catch (error) {
       console.error("获取借还记录失败:", error);
-      return [];
+      return { records: [], totalRecords: 0, totalPages: 1 };
     }
   },
 

@@ -1,11 +1,33 @@
 // app/api/assets/route.ts
 
 import { query } from "@/lib/db";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server"; // 确保导入 NextRequest
 
-// GET 函数 - 包含借用信息
-export async function GET() {
+// GET 函数 - 包含借用信息和分页
+export async function GET(request: NextRequest) {
   try {
+    const searchParams = request.nextUrl.searchParams;
+
+    // 解析并验证分页参数
+    let page = parseInt(searchParams.get("page") || "1", 10);
+    let limit = parseInt(searchParams.get("limit") || "6", 10); // 默认值改为9
+
+    if (isNaN(page) || page < 1) {
+      page = 1;
+    }
+    if (isNaN(limit) || limit < 1) {
+      limit = 9;
+    }
+
+    const offset = (page - 1) * limit;
+
+    // 查询总数
+    const countResult = (await query({
+      query: "SELECT COUNT(*) as total FROM assets",
+    })) as { total: number }[];
+    const totalAssets = countResult[0].total;
+
+    // 查询分页后的数据
     const assets = await query({
       query: `
         SELECT 
@@ -20,17 +42,24 @@ export async function GET() {
         LEFT JOIN asset_types t ON a.asset_type_id = t.id
         LEFT JOIN records r ON a.id = r.asset_id AND r.actual_return_date IS NULL
         ORDER BY a.created_at DESC
+        LIMIT ${limit} OFFSET ${offset}
       `,
     });
 
-    return NextResponse.json({ assets });
+    return NextResponse.json({
+      assets,
+      totalAssets,
+      totalPages: Math.ceil(totalAssets / limit),
+    });
   } catch (error) {
-    console.error("获取资产列表失败:", error);
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+    console.error("获取资产列表失败:", errorMessage);
     return NextResponse.json({ message: "内部服务器错误" }, { status: 500 });
   }
 }
 
-// 处理 POST 请求
+// 处理 POST 请求 (保持不变)
 export async function POST(request: Request) {
   try {
     const {
@@ -63,18 +92,21 @@ export async function POST(request: Request) {
     if (purchase_date) {
       try {
         // 如果已经是 YYYY-MM-DD 格式，直接使用
-        if (typeof purchase_date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(purchase_date)) {
+        if (
+          typeof purchase_date === "string" &&
+          /^\d{4}-\d{2}-\d{2}$/.test(purchase_date)
+        ) {
           purchaseDateValue = purchase_date;
         } else {
           // 否则尝试解析为日期并转换为 YYYY-MM-DD 格式
           const date = new Date(purchase_date);
           if (isNaN(date.getTime())) {
-            throw new Error('Invalid date');
+            throw new Error("Invalid date");
           }
-          purchaseDateValue = date.toISOString().split('T')[0];
+          purchaseDateValue = date.toISOString().split("T")[0];
         }
       } catch (dateError) {
-        console.error('日期格式转换错误:', dateError, '原始值:', purchase_date);
+        console.error("日期格式转换错误:", dateError, "原始值:", purchase_date);
         return NextResponse.json(
           { message: "购买日期格式不正确" },
           { status: 400 }

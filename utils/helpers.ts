@@ -16,8 +16,26 @@ export const getStatusColor = (status: string) => {
       return "bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100 hover:text-amber-800";
     case "维修中":
       return "bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100 hover:text-rose-800";
+    case "已报废":
+      return "bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100 hover:text-gray-800";
     default:
       return "bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100 hover:text-gray-800";
+  }
+};
+
+// 新增：专门用于状态图表背景色的函数
+export const getStatusChartColor = (status: string) => {
+  switch (status) {
+    case "在库":
+      return "bg-emerald-400";
+    case "已借出":
+      return "bg-amber-400";
+    case "维修中":
+      return "bg-rose-400";
+    case "已报废":
+      return "bg-gray-400";
+    default:
+      return "bg-gray-400";
   }
 };
 
@@ -59,12 +77,4 @@ export const filterAssets = (
       selectedStatus === "all" || asset.status === selectedStatus;
     return matchesSearch && matchesCategory && matchesStatus;
   });
-};
-
-export const calculateAssetCounts = (assets: Asset[]) => {
-  return {
-    available: assets.filter((a) => a.status === "在库").length,
-    onLoan: assets.filter((a) => a.status === "已借出").length,
-    maintenance: assets.filter((a) => a.status === "维修中").length,
-  };
 };

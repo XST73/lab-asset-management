@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { StatusDistribution, OverdueAsset, CategoryStat } from "@/types";
-import { getStatusColor } from "@/utils/helpers";
+import { getStatusColor, getStatusChartColor } from "@/utils/helpers";
 import { Button } from "@/components/ui/button";
 
 interface ReportsSectionProps {
@@ -97,27 +97,28 @@ export default function ReportsSection({
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {statusDistribution.map((item) => (
-                <div key={item.status} className="flex items-center text-sm">
-                  <span className="w-20 font-semibold text-gray-700">
-                    {item.status}
-                  </span>
-                  <div className="flex-1 bg-gray-200 rounded-full h-3.5 mr-3">
-                    <div
-                      className={`h-3.5 rounded-full ${getStatusColor(
-                        item.status
-                      )
-                        .replace("text-emerald-700", "bg-emerald-400")
-                        .replace("text-amber-700", "bg-amber-400")
-                        .replace("text-rose-700", "bg-rose-400")}`}
-                      style={{
-                        width: `${(item.count / totalAssets) * 100}%`,
-                      }}
-                    ></div>
+              {statusDistribution && statusDistribution.length > 0 ? (
+                statusDistribution.map((item) => (
+                  <div key={item.status} className="flex items-center text-sm">
+                    <span className="w-20 font-semibold text-gray-700">
+                      {item.status}
+                    </span>
+                    <div className="flex-1 bg-gray-200 rounded-full h-3.5 mr-3">
+                      <div
+                        className={`h-3.5 rounded-full ${getStatusChartColor(item.status)}`}
+                        style={{
+                          width: `${totalAssets > 0 ? (item.count / totalAssets) * 100 : 0}%`,
+                        }}
+                      ></div>
+                    </div>
+                    <span className="font-bold text-gray-800">{item.count}</span>
                   </div>
-                  <span className="font-bold text-gray-800">{item.count}</span>
+                ))
+              ) : (
+                <div className="text-center py-4 text-gray-500">
+                  暂无状态数据
                 </div>
-              ))}
+              )}
             </div>
           </CardContent>
         </Card>

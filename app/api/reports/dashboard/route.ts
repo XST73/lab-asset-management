@@ -13,7 +13,10 @@ export async function GET() {
       FROM assets
       GROUP BY status
     `;
-    const statusDistribution = await query({ query: statusDistributionQuery });
+    const statusDistribution = (await query({ query: statusDistributionQuery })) as {
+      status: string;
+      count: number;
+    }[];
 
     // --- 2. 逾期未还列表报告 ---
     const overdueAssetsQuery = `
@@ -28,7 +31,12 @@ export async function GET() {
       AND r.expected_return_date < CURDATE()
       ORDER BY r.expected_return_date ASC
     `;
-    const overdueAssets = await query({ query: overdueAssetsQuery });
+    const overdueAssets = (await query({ query: overdueAssetsQuery })) as {
+      id: number;
+      asset_name: string;
+      borrower_name: string;
+      expected_return_date: string;
+    }[];
 
     // --- 3. 按类别统计的资产数量与利用率 ---
     const categoryStatsQuery = `

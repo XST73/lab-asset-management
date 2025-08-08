@@ -1,4 +1,4 @@
-// app/page.tsx - Optimized version
+// app/page.tsx - Optimized version with pagination
 
 "use client";
 
@@ -24,10 +24,11 @@ import ReportsSection from "@/components/reports/ReportsSection";
 import AddAssetDialog from "@/components/modals/AddAssetDialog";
 import EditAssetDialog from "@/components/modals/EditAssetDialog";
 import ManageAssetTypesDialog from "@/components/modals/ManageAssetTypesDialog";
+import Pagination from "@/components/ui/Pagination"; // 引入分页组件
 
 // Import custom hooks and utilities
 import { useAssetData } from "@/hooks/useAssetData";
-import { filterAssets, calculateAssetCounts } from "@/utils/helpers";
+import { filterAssets } from "@/utils/helpers";
 import { Asset } from "@/types";
 import { assetAPI, loanRecordAPI } from "@/services/api";
 
@@ -41,6 +42,13 @@ export default function LabAssetManagement() {
     categoryStats,
     isLoading,
     refreshData,
+    assetPage,
+    setAssetPage,
+    totalAssetPages,
+    loanRecordPage,
+    setLoanRecordPage,
+    totalLoanRecordPages,
+    totalAssets,
   } = useAssetData();
 
   // Filter states
@@ -73,7 +81,7 @@ export default function LabAssetManagement() {
       setIsEditDialogOpen(false);
       setEditingAsset(null);
     } catch (error) {
-      alert(`更新失败: ${error instanceof Error ? error.message : '未知错误'}`);
+      alert(`更新失败: ${error instanceof Error ? error.message : "未知错误"}`);
     }
   };
 
@@ -85,7 +93,7 @@ export default function LabAssetManagement() {
       alert("资产删除成功!");
       await refreshData();
     } catch (error) {
-      alert(`删除失败: ${error instanceof Error ? error.message : '未知错误'}`);
+      alert(`删除失败: ${error instanceof Error ? error.message : "未知错误"}`);
     }
   };
 
@@ -105,7 +113,7 @@ export default function LabAssetManagement() {
       alert("资产借出成功!");
       await refreshData();
     } catch (error) {
-      alert(`借出失败: ${error instanceof Error ? error.message : '未知错误'}`);
+      alert(`借出失败: ${error instanceof Error ? error.message : "未知错误"}`);
     }
   };
 
@@ -117,13 +125,27 @@ export default function LabAssetManagement() {
       alert("资产归还成功!");
       await refreshData();
     } catch (error) {
-      alert(`归还失败: ${error instanceof Error ? error.message : '未知错误'}`);
+      alert(`归还失败: ${error instanceof Error ? error.message : "未知错误"}`);
     }
   };
 
   // Computed values
-  const filteredAssets = filterAssets(assets, searchTerm, selectedCategory, selectedStatus);
-  const { available, onLoan, maintenance } = calculateAssetCounts(assets);
+  const filteredAssets = filterAssets(
+    assets,
+    searchTerm,
+    selectedCategory,
+    selectedStatus
+  );
+  
+  // 基于真实的状态分布数据计算统计数量
+  const getStatusCount = (status: string) => {
+    const statusItem = statusDistribution.find(item => item.status === status);
+    return statusItem ? statusItem.count : 0;
+  };
+  
+  const available = getStatusCount("在库");
+  const onLoan = getStatusCount("已借出");
+  const maintenance = getStatusCount("维修中");
   const overdueCount = overdueAssets.length;
 
   return (
@@ -198,6 +220,11 @@ export default function LabAssetManagement() {
                   onLoan={handleLoanAsset}
                   onReturn={handleReturnAsset}
                 />
+                <Pagination
+                  currentPage={assetPage}
+                  totalPages={totalAssetPages}
+                  onPageChange={setAssetPage}
+                />
               </CardContent>
             </Card>
           </TabsContent>
@@ -214,6 +241,11 @@ export default function LabAssetManagement() {
               </CardHeader>
               <CardContent>
                 <LoanRecordsTable loanRecords={loanRecords} />
+                <Pagination
+                  currentPage={loanRecordPage}
+                  totalPages={totalLoanRecordPages}
+                  onPageChange={setLoanRecordPage}
+                />
               </CardContent>
             </Card>
           </TabsContent>
@@ -223,7 +255,7 @@ export default function LabAssetManagement() {
               statusDistribution={statusDistribution}
               overdueAssets={overdueAssets}
               categoryStats={categoryStats}
-              totalAssets={assets.length}
+              totalAssets={totalAssets}
               setIsManageTypesDialogOpen={setIsManageTypesDialogOpen}
             />
           </TabsContent>

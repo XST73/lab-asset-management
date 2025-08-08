@@ -150,6 +150,24 @@ export async function DELETE(request: Request, context: RequestContext) {
     const { id } = await context.params;
     const assetId = parseInt(id, 10);
 
+    // 检查是否有未归还的借出记录
+    const checkRecordsQuery = `
+      SELECT COUNT(*) AS count
+      FROM records
+      WHERE asset_id = ? AND actual_return_date IS NULL
+    `;
+    const [recordCountResult] = (await query({
+      query: checkRecordsQuery,
+      values: [assetId],
+    })) as [{ count: number }];
+
+    if (recordCountResult.count > 0) {
+      return NextResponse.json(
+        { message: "无法删除！该资产有未归还的借出记录" },
+        { status: 400 }
+      );
+    }
+
     const deleteQuery = "DELETE FROM assets WHERE id = ?";
     const result = (await query({
       query: deleteQuery,
@@ -164,16 +182,7 @@ export async function DELETE(request: Request, context: RequestContext) {
     }
 
     return new NextResponse(null, { status: 204 }); // 204 No Content，表示成功但无返回内容
-  } catch (error: unknown) {
-    // 如果因为外键约束导致无法删除，给出提示
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    if (errorMessage.includes("foreign key constraint")) {
-      return NextResponse.json(
-        { message: "删除失败：该资产尚有关联的借还记录" },
-        { status: 409 }
-      );
-    }
-
+  } catch (error) {
     console.error("删除资产失败:", error);
     return NextResponse.json({ message: "内部服务器错误" }, { status: 500 });
   }
